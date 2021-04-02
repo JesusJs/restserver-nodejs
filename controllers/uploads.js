@@ -108,7 +108,7 @@ const actualizarImagenCloudinary = async(req, res = response) => {
                 return res.status(400).json({
                     msg: `No es un Producto con el id ${id}`
                 })
-            }
+            } 
 
             break;
 
