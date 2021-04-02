@@ -3,6 +3,8 @@ const cors = require('cors');
 const router = require('../routes/usuarios');
 const { dbConnection } = require('../database/config');
 
+const fileUpload = require('express-fileUpload');
+
 class Server {
 
 
@@ -16,6 +18,7 @@ class Server {
                 categorias: '/api/categorias',
                 productos: '/api/productos',
                 auth: '/api/auth',
+                uploads: '/api/uploads',
 
             }
             // Esta eran las rutas antiguas, cambiadas y mejoradas por la de arriba
@@ -56,6 +59,12 @@ class Server {
         // Directorio pubíco
         this.app.use(express.static('public'));
 
+        this.app.use(fileUpload({
+            useTempFiles: true,
+            tempFileDir: '/tmp/',
+            createParentPath: true,
+        }));
+
 
     }
 
@@ -67,6 +76,7 @@ class Server {
         this.app.use(this.paths.categorias, require('../routes/categorias'));
         this.app.use(this.paths.productos, require('../routes/productos'));
         this.app.use(this.paths.usuarios, require('../routes/usuarios'));
+        this.app.use(this.paths.uploads, require('../routes/uploads'));
 
     }
 
